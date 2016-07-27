@@ -5,9 +5,9 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
- * Unit test for simple WebControllers.
+ * Unit test for simple App.
  */
-public class WebControllersTest
+public class AppTest
     extends TestCase
 {
     /**
@@ -15,7 +15,7 @@ public class WebControllersTest
      *
      * @param testName name of the test case
      */
-    public WebControllersTest(String testName )
+    public AppTest(String testName )
     {
         super( testName );
     }
@@ -25,7 +25,7 @@ public class WebControllersTest
      */
     public static Test suite()
     {
-        return new TestSuite( WebControllersTest.class );
+        return new TestSuite( AppTest.class );
     }
 
     /**

@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html >
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout">
 <head>
     <meta charset="UTF-8">
     <title>TODO 列表</title>
 </head>
 <body>
 <div class="container">
-    <div>
+    <h1 layout:fragment="header">Todo 列表</h1>
+    <div layout:fragment="content" class="container">
         <div id="createTodo">
             <form action="/todos" method="POST">
                 <div class="form-group"><input type="input" name="content" class="form-control">
@@ -14,6 +17,32 @@
                 </div>
             </form>
         </div>
+        <div><a href="/todos" role="button" class="btn btn-default">未完成</a><a href="/todos?status=1" role="button"
+                                                                              class="btn btn-default">已完成</a></div>
+        <div id="errorMsg" th:if="${param.errorMessage}!=null">
+            <pre th:text="${param.errorMessage}"></pre>
+            </div>
+        <table class="table">
+            <colgroup><col class="col-xs-10"><col class="col-xs-1"><col class="col-xs-1"></colgroup>
+            <tr>
+            <th>描述</th>
+            <th>所有者</th>
+            <th>操作</th>
+            </tr>
+            <tr th:each="todo : ${todos}">
+                <td>
+                    <form th:action="'/todos/'+${todo.objectId}+'/mark?currentStatus='+${todo.status}" method="POST">
+                        <div class="checkbox"><label><input type="checkbox" onclick="submit()"
+                                                            th:text="${todo.content}"></label></div>
+                    </form>
+                </td>
+                <td th:text="*{todo.author}"></td>
+                <td>
+                    <form th:action="'/todos/'+${todo.objectId}+'?_method=DELETE&amp;status='+${todo.status}"
+                          method="POST"><input type="submit" value="删除" class="btn btn-default"></form>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
 </body>
